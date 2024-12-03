@@ -1,0 +1,42 @@
+---
+title: "ganttGenerator"
+author: "Kevin S. Blake"
+date: "2024-02-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+### Load packages + helper functions
+
+source("_common.R")
+
+### Load data file(s)
+df <- readxl::read_excel("240211_timeline-example.xlsx") #"240211_timeline-example.xlsx"
+
+```
+
+```{r customization, include=FALSE}
+custom.pal <- c("#1B9E77", "#E35231", "#7570B3")
+
+```
+
+
+```{r plot}
+
+ganttrify(
+  project = df,
+  project_start_date = "2019-01",
+  label_wrap = 48,
+  mark_years = TRUE,
+  #hide_wp = TRUE,
+  alpha_wp = 0,
+  #axis_text_align = "left",
+  #colour_palette = custom.pal
+  colour_palette = NatParksPalettes::natparks.pals("Saguaro")
+) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  ggplot2::theme(axis.title.x=element_blank())
+
+```
